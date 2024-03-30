@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jush.models.User;
@@ -47,57 +48,34 @@ public class UserController {
 	@GetMapping("/users/{userid}")
 	public User getUserById(@PathVariable("userid") Integer id) throws Exception {
 		
-		
+		 User user =userService.findUserById(id);
+		 return user;
 	}
 	
 
-	
-	
 	@PutMapping("/users/{userid}")
 	public User updateUser(@RequestBody User user,@PathVariable Integer userid) throws Exception {
 		
 		
+			User updatedUser=userService.updateUser(user, userid);
+			return updatedUser;
 		
-		Optional<User> user1 = userRepository.findById(userid);
-		
-		if (user1.isEmpty()) {
-			throw new Exception("user not exist with id "+userid);
-			
-		}
-		
-		User oldUser=user1.get();
-		
-		
-		if (user.getFirstName()!=null) {
-			oldUser.setFirstName(user.getFirstName());
-		}
-		if (user.getLastName()!=null) {
-			oldUser.setLastName(user.getLastName());
-		}
-		if (user.getEmail()!=null) {
-			oldUser.setEmail(user.getEmail());
-		}
-		
-		User updatedUser=userRepository.save(oldUser);
-		
-		return updatedUser;
 	}
 	
-	
-	@DeleteMapping("/users/{userid}")
-	public String deleteUser(@PathVariable("userid") Integer userid) throws Exception {
+	@PutMapping("/users/follow/{userid1}/{userid2}")
+	public User followUserHandler(@PathVariable Integer userid1,@PathVariable Integer userid2) throws Exception{
 		
-Optional<User> user = userRepository.findById(userid);
+		User user=userService.followUser(userid1, userid2);
 		
-		if (user.isEmpty()) {
-			throw new Exception("user not exist with id "+userid);
-			
-		}
-		userRepository.delete(user.get());
-		return "user deleted succesfully with id "+userid;
-	
+		return user;
+		
 	}
 	
+	@GetMapping("/users/search")
+	public List<User> searchUser(@RequestParam("query") String query){
+		List<User> users=userService.searchUser(query);
+		return users;
+	}
 	
 	
 	
