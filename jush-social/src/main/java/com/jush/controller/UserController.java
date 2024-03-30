@@ -47,13 +47,7 @@ public class UserController {
 	@GetMapping("/users/{userid}")
 	public User getUserById(@PathVariable("userid") Integer id) throws Exception {
 		
-		Optional<User> user =userRepository.findById(id);
 		
-		if(user.isPresent()) {
-			return user.get();
-		}
-	
-		throw new Exception("there is no user with this id " + id);
 	}
 	
 
