@@ -10,7 +10,7 @@ import com.jush.models.Post;
 
 public interface PostRepository extends JpaRepository<Post, Integer>{
 	
-	@Query("select p from Post p.user.id=:userid ")
+	@Query("select p from Post p where p.user.id=:userid")
 	List<Post> findPostByUserId(Integer userid);
 
 }
