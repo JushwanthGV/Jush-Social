@@ -2,7 +2,7 @@ package com.jush.response;
 
 public class ApiResponse {
 
-	private String messageString;
+	private String message;
 	private boolean status;
 	
 	
@@ -11,16 +11,18 @@ public class ApiResponse {
 	}
 	
 	
-	public ApiResponse(String messageString, boolean status) {
+	public ApiResponse(String message, boolean status) {
 		super();
-		this.messageString = messageString;
+		this.message = message;
 		this.status = status;
 	}
-	public String getMessageString() {
-		return messageString;
+	
+	
+	public String getMessage() {
+		return message;
 	}
-	public void setMessageString(String messageString) {
-		this.messageString = messageString;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	public boolean isStatus() {
 		return status;

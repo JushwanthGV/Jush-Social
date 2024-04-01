@@ -52,6 +52,7 @@ public class PostServiceImplementation implements PostService{
 			throw new Exception("you cant delete this another users post");
 		}
 		
+		
 		postRepository.delete(post);
 		return "post deleted succesfully";
 	}
