@@ -38,14 +38,14 @@ public class UserController {
 		return savedUser;
 	}
 	
-	@GetMapping("/users")
+	@GetMapping("/api/users")
 	public List<User> getUsers() {
 		
 		List<User> users=userRepository.findAll();
 		return users;
 	}
 	
-	@GetMapping("/users/{userid}")
+	@GetMapping("/api/users/{userid}")
 	public User getUserById(@PathVariable("userid") Integer id) throws Exception {
 		
 		 User user =userService.findUserById(id);
@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 
-	@PutMapping("/users/{userid}")
+	@PutMapping("/api/users/{userid}")
 	public User updateUser(@RequestBody User user,@PathVariable Integer userid) throws Exception {
 		
 		
@@ -62,7 +62,7 @@ public class UserController {
 		
 	}
 	
-	@PutMapping("/users/follow/{userid1}/{userid2}")
+	@PutMapping("/api/users/follow/{userid1}/{userid2}")
 	public User followUserHandler(@PathVariable Integer userid1,@PathVariable Integer userid2) throws Exception{
 		
 		User user=userService.followUser(userid1, userid2);
@@ -71,7 +71,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/users/search")
+	@GetMapping("/api/users/search")
 	public List<User> searchUser(@RequestParam("query") String query){
 		List<User> users=userService.searchUser(query);
 		return users;
