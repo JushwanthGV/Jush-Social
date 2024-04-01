@@ -70,7 +70,7 @@ public class PostController {
 	}
 	
 	
-	@PutMapping("/posts/{postid}/user/{userid}")
+	@PutMapping("/posts/save/{postid}/user/{userid}")
 	public ResponseEntity<Post> savedPostHandler(@PathVariable Integer postid,@PathVariable Integer userid) throws Exception{
 		
 		Post post=postService.savedPost(postid, userid);
