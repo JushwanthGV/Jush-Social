@@ -42,6 +42,9 @@ public class AuthController {
 		
 		User savedUser=userRepository.save(newUser);
 		
+		
+		
+		
 		return savedUser;
 	}
 	
