@@ -1,16 +1,22 @@
 package com.jush.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jush.config.JwtProvider;
 import com.jush.models.User;
 import com.jush.repository.UserRepository;
+import com.jush.response.AuthResponse;
 import com.jush.service.UserService;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 	
 	@Autowired
@@ -22,8 +28,8 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@PostMapping("/users")
-	public User createUser(@RequestBody User user) throws Exception {
+	@PostMapping("/signup")
+	public AuthResponse createUser(@RequestBody User user) throws Exception {
 		
 		User isExist= userRepository.findByEmail(user.getEmail()); 
 		
@@ -42,10 +48,13 @@ public class AuthController {
 		
 		User savedUser=userRepository.save(newUser);
 		
+		Authentication authentication=new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
 		
+		String token=JwtProvider.generateToken(authentication);
 		
+		AuthResponse res=new AuthResponse(token,"Register Success");
 		
-		return savedUser;
+		return res;
 	}
 	
 }
