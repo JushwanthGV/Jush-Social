@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jush.config.JwtProvider;
 import com.jush.models.User;
 import com.jush.repository.UserRepository;
 
@@ -55,19 +56,19 @@ Optional<User> user =userRepository.findById(userid);
 	}
 
 	@Override
-	public User followUser(Integer userid1, Integer userid2) throws Exception {
+	public User followUser(Integer reqUserId, Integer userid2) throws Exception {
 		
-		User user1=findUserById(userid1);
+		User reqUser=findUserById(reqUserId);
 		
 		User user2=findUserById(userid2);
 		
-		user2.getFollowers().add(user1.getId());
-		user1.getFollowings().add(user2.getId());
+		user2.getFollowers().add(reqUser.getId());
+		reqUser.getFollowings().add(user2.getId());
 		
-		userRepository.save(user1);
+		userRepository.save(reqUser);
 		userRepository.save(user2);
 		
-		return user1;
+		return reqUser;
 	}
 
 	@Override
@@ -102,6 +103,16 @@ Optional<User> user =userRepository.findById(userid);
 		
 		
 		return userRepository.searchUser(query);
+	}
+
+	@Override 
+	public User findUserByJwt(String jwt) {
+		String email=JwtProvider.getEmailFromJwtToken(jwt);
+		
+		User user=userRepository.findByEmail(email);
+		
+		
+		return user;
 	}
 
 	
