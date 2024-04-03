@@ -92,6 +92,9 @@ Optional<User> user =userRepository.findById(userid);
 		if (user.getEmail()!=null) {
 			oldUser.setEmail(user.getEmail());
 		}
+		if(user.getGender()!=null) {
+			oldUser.setGender(user.getGender());
+		}
 		
 		User updatedUser=userRepository.save(oldUser);
 		
