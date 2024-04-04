@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Chat {
@@ -30,17 +31,23 @@ public class Chat {
 	
 	private LocalDateTime timestamp;
 	
+	
+	@OneToMany(mappedBy = "chat")
+	private List<Message> messages=new ArrayList<>();
+	
 	public Chat() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chat(Integer id, String chat_name, String chat_image, List<User> users, LocalDateTime timestamp) {
+	public Chat(Integer id, String chat_name, String chat_image, List<User> users, LocalDateTime timestamp,
+			List<Message> messages) {
 		super();
 		this.id = id;
 		this.chat_name = chat_name;
 		this.chat_image = chat_image;
 		this.users = users;
 		this.timestamp = timestamp;
+		this.messages = messages;
 	}
 
 	public Integer getId() {
@@ -82,6 +89,15 @@ public class Chat {
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
 	
 	
 	
