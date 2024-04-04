@@ -13,7 +13,7 @@ public class Story {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer idInteger;
 	
 	@ManyToOne
 	private User user;
@@ -28,21 +28,21 @@ public class Story {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Story(Integer id, User user, String image, String captions, LocalDateTime timestamp) {
+	public Story(Integer idInteger, User user, String image, String captions, LocalDateTime timestamp) {
 		super();
-		this.id = id;
+		this.idInteger = idInteger;
 		this.user = user;
 		this.image = image;
 		this.captions = captions;
 		this.timestamp = timestamp;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getIdInteger() {
+		return idInteger;
 	}
 
-	public void setIdInteger(Integer id) {
-		this.id = id;
+	public void setIdInteger(Integer idInteger) {
+		this.idInteger = idInteger;
 	}
 
 	public User getUser() {
@@ -76,6 +76,8 @@ public class Story {
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
+
+	
 	
 	
 	
