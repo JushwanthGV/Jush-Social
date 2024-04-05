@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jush.exceptions.UserException;
 import com.jush.models.User;
 import com.jush.repository.UserRepository;
 import com.jush.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/api/users/{userid}")
-	public User getUserById(@PathVariable("userid") Integer id) throws Exception {
+	public User getUserById(@PathVariable("userid") Integer id) throws UserException {
 		
 		 User user =userService.findUserById(id);
 		 return user;
@@ -50,7 +51,7 @@ public class UserController {
 	
 
 	@PutMapping("/api/users")
-	public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user) throws Exception {
+	public User updateUser(@RequestHeader("Authorization")String jwt,@RequestBody User user) throws UserException {
 			
 		
 		User reqUser=userService.findUserByJwt(jwt);
@@ -62,7 +63,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/api/users/follow/{userid2}")
-	public User followUserHandler(@RequestHeader("Authorization")String jwt, @PathVariable Integer userid2) throws Exception{
+	public User followUserHandler(@RequestHeader("Authorization")String jwt, @PathVariable Integer userid2) throws UserException{
 		
 		User reqUser=userService.findUserByJwt(jwt);
 		

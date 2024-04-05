@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jush.config.JwtProvider;
+import com.jush.exceptions.UserException;
 import com.jush.models.User;
 import com.jush.repository.UserRepository;
 
@@ -39,14 +40,14 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public User findUserById(Integer userid) throws Exception {
+	public User findUserById(Integer userid) throws UserException {
 Optional<User> user =userRepository.findById(userid);
 		
 		if(user.isPresent()) {
 			return user.get();
 		}
 	
-		throw new Exception("there is no user with this id " + userid);
+		throw new 	UserException("there is no user with this id " + userid);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ Optional<User> user =userRepository.findById(userid);
 	}
 
 	@Override
-	public User followUser(Integer reqUserId, Integer userid2) throws Exception {
+	public User followUser(Integer reqUserId, Integer userid2) throws UserException {
 		
 		User reqUser=findUserById(reqUserId);
 		
@@ -72,11 +73,11 @@ Optional<User> user =userRepository.findById(userid);
 	}
 
 	@Override
-	public User updateUser(User user,Integer userid) throws Exception {
+	public User updateUser(User user,Integer userid) throws UserException {
 		Optional<User> user1 = userRepository.findById(userid);
 		
 		if (user1.isEmpty()) {
-			throw new Exception("user not exist with id "+userid);
+			throw new UserException("user not exist with id "+userid);
 			
 		}
 		
